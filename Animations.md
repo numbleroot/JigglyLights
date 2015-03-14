@@ -1,7 +1,7 @@
-###JigglyLights LED Animations
+# JigglyLights LED Animations
 
 
-##Animations
+## Animations
 
 
-##Ideas
+## Ideas

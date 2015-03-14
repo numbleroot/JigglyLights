@@ -12,7 +12,7 @@ void setup() {
 }
 
 void loop() {
-  
+  progressbar(leds, NUM_LEDS, 0, 5, 50, 60);
 }
 
 void runner(CRGB *leds, int numOfLeds, int red, int green, int blue, int ms) {
@@ -26,5 +26,47 @@ void runner(CRGB *leds, int numOfLeds, int red, int green, int blue, int ms) {
         delay(ms);
         leds[i].setRGB(0, 0, 0);
         FastLED.show();
+    }
+    
+    for(i = (numOfLeds - 1); i > 0; i--) {
+
+        leds[i].setRGB(red, green, blue);
+        FastLED.show();
+        delay(ms);
+        leds[i].setRGB(0, 0, 0);
+        FastLED.show();
+    }
+}
+
+void progressbar(CRGB *leds, int numOfLeds, int red, int green, int blue, int ms) {
+
+    int i;
+    
+    for(i = 0; i < numOfLeds; i++) {
+      
+      leds[i].setRGB(red, green, blue);
+      FastLED.show();
+      delay(ms);
+    }
+    
+    for(i = 0; i < numOfLeds; i++) {
+      
+      leds[i].setRGB(0, 0, 0);
+      FastLED.show();
+      delay(ms);
+    }
+    
+    for(i = numOfLeds; i >= 0; i--) {
+      
+      leds[i].setRGB(red, green, blue);
+      FastLED.show();
+      delay(ms);
+    }
+    
+    for(i = numOfLeds; i >= 0; i--) {
+      
+      leds[i].setRGB(0, 0, 0);
+      FastLED.show();
+      delay(ms);
     }
 }

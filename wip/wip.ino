@@ -91,3 +91,22 @@ void blinking(CRGB *leds, int numOfLeds, int red, int green, int blue, int ms) {
   FastLED.show();
   delay(ms);
 }
+
+
+void pulse(CRGB *leds, int numOfLeds, int red, int green, int blue, int ms){
+  int numOfSteps = 10;
+
+
+  for (int step = 0; step < numOfSteps; step++){
+
+    int tempRed = red - (step * (red / numOfSteps));
+    int tempGreen = green - (step * (green / numOfSteps));
+    int tempBlue = blue - (step * (blue / numOfSteps));
+
+    for (int i = 0; i < numOfLeds; i++){
+      leds[i].setRGB(tempGreen, tempBlue, tempRed); 
+    }
+
+  }
+
+}

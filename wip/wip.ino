@@ -12,7 +12,7 @@ void setup() {
 }
 
 void loop() {
-  blinking(leds, NUM_LEDS, 0, 10, 0, 3000);
+  progressbarCentered(leds, NUM_LEDS, 0, 20, 0, 100);
 }
 
 void runner(CRGB *leds, int numOfLeds, int red, int green, int blue, int ms) {
@@ -73,9 +73,27 @@ void progressbar(CRGB *leds, int numOfLeds, int red, int green, int blue, int ms
 
 void progressbarCentered(CRGB *leds, int numOfLeds, int red, int green, int blue, int ms) {
 
-    int i, center;
+    int i, center, inv;
 
     center = numOfLeds / 2;
+    
+    for(i = center; i < numOfLeds; i++) {
+    
+        inv = (numOfLeds - i) - 1;
+        leds[i].setRGB(red, green, blue);
+        leds[inv].setRGB(red, green, blue);
+        FastLED.show();
+        delay(ms);
+    }
+    
+    for(i = (numOfLeds - 1); i >= center; i--) {
+    
+        inv = (numOfLeds - i) - 1;
+        leds[i].setRGB(0, 0, 0);
+        leds[inv].setRGB(0, 0, 0);
+        FastLED.show();
+        delay(ms);
+    }
 }
 
 void blinking(CRGB *leds, int numOfLeds, int red, int green, int blue, int ms) {
@@ -124,7 +142,7 @@ void blinkingParts(CRGB *leds, int numOfLeds, int parts, int red, int green, int
 
 //ms = time of pulse
 void pulse(CRGB *leds, int numOfLeds, int red, int green, int blue, int ms){
-  int numOfSteps = 25;
+  int numOfSteps = 20;
 
   for (int step = 0; step < numOfSteps; step++){
 
@@ -133,10 +151,10 @@ void pulse(CRGB *leds, int numOfLeds, int red, int green, int blue, int ms){
     int tempBlue = blue - (step * (blue / numOfSteps));
 
     for (int i = 0; i < numOfLeds; i++){
-      leds[i].setRGB(tempGreen, tempBlue, tempRed); 
+      leds[i].setRGB(tempRed, tempGreen, tempBlue); 
     }
+    
+    FastLED.show();
+    delay(ms/numOfSteps);
   }
-  FastLED.show();
-  delay(ms/numOfSteps);
-
 }

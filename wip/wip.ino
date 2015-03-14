@@ -122,9 +122,9 @@ void blinkingParts(CRGB *leds, int numOfLeds, int parts, int red, int green, int
     delay(ms);
 }
 
+//ms = time of pulse
 void pulse(CRGB *leds, int numOfLeds, int red, int green, int blue, int ms){
-  int numOfSteps = 10;
-
+  int numOfSteps = 25;
 
   for (int step = 0; step < numOfSteps; step++){
 
@@ -133,9 +133,10 @@ void pulse(CRGB *leds, int numOfLeds, int red, int green, int blue, int ms){
     int tempBlue = blue - (step * (blue / numOfSteps));
 
     for (int i = 0; i < numOfLeds; i++){
-      leds[i].setRGB(tempGreen, tempBlue, tempRed);
+      leds[i].setRGB(tempGreen, tempBlue, tempRed); 
     }
-
   }
+  FastLED.show();
+  delay(ms/numOfSteps);
 
 }

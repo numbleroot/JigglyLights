@@ -12,7 +12,48 @@ void setup() {
 }
 
 void loop() {
-  progressbarCentered(leds, NUM_LEDS, 0, 20, 0, 100);
+  
+  // int randred = random8(100);
+  // int randgreen = random8(100);
+  // int randblue = random8(100);
+  // progressbar(leds, NUM_LEDS, randred,randgreen,randblue, 30);
+  // randred = random8(100);
+  // randgreen = random8(100);
+  // randblue = random8(100);
+  // runner(leds, NUM_LEDS, randred,randgreen,randblue, 30);
+  // randred = random8(100);
+  // randgreen = random8(100);
+  // randblue = random8(100);
+  // blinking(leds, NUM_LEDS, randred,randgreen,randblue, 800);
+  // randred = random8(100);
+  // randgreen = random8(100);
+  // randblue = random8(100);
+  // blinking(leds, NUM_LEDS, randred,randgreen,randblue, 800);
+  // randred = random8(100);
+  // randgreen = random8(100);
+  // randblue = random8(100);
+  // blinking(leds, NUM_LEDS, randred,randgreen,randblue, 800);
+  // randred = random8(100);
+  // randgreen = random8(100);
+  // randblue = random8(100);
+  // progressbarCentered(leds, NUM_LEDS, randred,randgreen,randblue, 30);
+  // randred = random8(100);
+  // randgreen = random8(100);
+  // randblue = random8(100);
+  // runner(leds, NUM_LEDS, randred,randgreen,randblue, 30);
+
+//  sparkleAt(10, leds, NUM_LEDS, 25, 0, 0, 1000);
+//  sparkleAtRandomIndex(leds, NUM_LEDS, 25, 0, 0, 500);
+  for (int i = 0; i < NUM_LEDS; i++){
+    sparkleAt(i, leds, NUM_LEDS, 0, 0, 25, 350);
+  }
+  
+  for (int i = (NUM_LEDS - 1); i >=0; i--){
+    sparkleAt(i, leds, NUM_LEDS, 0, 0, 25, 350);
+  }
+
+//  void sparkleAt(int index, CRGB *leds, int numOfLeds, int red, int green, int blue, int ms){
+
 }
 
 void runner(CRGB *leds, int numOfLeds, int red, int green, int blue, int ms) {
@@ -158,3 +199,52 @@ void pulse(CRGB *leds, int numOfLeds, int red, int green, int blue, int ms){
     delay(ms/numOfSteps);
   }
 }
+
+
+void sparkleAt(int index, CRGB *leds, int numOfLeds, int red, int green, int blue, int ms){
+  if (index >= numOfLeds){
+    //out of bounds
+  }else{
+    int spread = 2;
+    int spreadIndex = 0;
+
+    leds[index].setRGB(red, green, blue);
+    FastLED.show();
+    
+    int i;
+    for (i =  1; i <= spread; i++){
+      delay(ms/(spread+1));
+      if (index - (i-1)>=0){
+        leds[index - (i-1)].setRGB(0,0,0);
+      }
+      
+      if (index + (i-1)<numOfLeds){
+        leds[index + (i-1)].setRGB(0,0,0);
+      }
+      
+      leds[index + i].setRGB(red, green, blue);
+      leds[index - i].setRGB(red, green, blue);
+      
+      FastLED.show();
+    }
+    
+     delay(ms/(spread+1));
+      if (index - (i-1)>=0){
+        leds[index - (i-1)].setRGB(0,0,0);
+      }
+      
+      if (index + (i-1)<numOfLeds){
+        leds[index + (i-1)].setRGB(0,0,0);
+      }
+      
+      FastLED.show();
+      
+  }
+}
+
+void sparkleAtRandomIndex(CRGB *leds, int numOfLeds, int red, int green, int blue, int ms){
+  int randomIndex = random8(numOfLeds);
+  sparkleAt(randomIndex, leds, numOfLeds, red, green, blue, ms);
+}
+
+

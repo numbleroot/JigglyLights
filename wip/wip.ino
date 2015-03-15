@@ -12,74 +12,7 @@ void setup() {
 }
 
 void loop() {
-  // int randred = random8(100);
-  // int randgreen = random8(100);
-  // int randblue = random8(100);
-  // progressbar(leds, NUM_LEDS, randred,randgreen,randblue, 30);
-  // randred = random8(100);
-  // randgreen = random8(100);
-  // randblue = random8(100);
-  // runner(leds, NUM_LEDS, randred,randgreen,randblue, 30);
-  // randred = random8(100);
-  // randgreen = random8(100);
-  // randblue = random8(100);
-  // blinking(leds, NUM_LEDS, randred,randgreen,randblue, 800);
-  // randred = random8(100);
-  // randgreen = random8(100);
-  // randblue = random8(100);
-  // blinking(leds, NUM_LEDS, randred,randgreen,randblue, 800);
-  // randred = random8(100);
-  // randgreen = random8(100);
-  // randblue = random8(100);
-  // blinking(leds, NUM_LEDS, randred,randgreen,randblue, 800);
-  // randred = random8(100);
-  // randgreen = random8(100);
-  // randblue = random8(100);
-  // progressbarCentered(leds, NUM_LEDS, randred,randgreen,randblue, 30);
-  // randred = random8(100);
-  // randgreen = random8(100);
-  // randblue = random8(100);
-  // runner(leds, NUM_LEDS, randred,randgreen,randblue, 30);
-
-//  sparkleAt(10, leds, NUM_LEDS, 25, 0, 0, 1000);
-//  sparkleAtRandomIndex(leds, NUM_LEDS, 25, 0, 0, 500);
-
-
-//  for (int i = 0; i < NUM_LEDS; i++){
-//    sparkleAt(i, leds, NUM_LEDS, 0, 0, 25, 350);
-//  }
-//  
-//  for (int i = (NUM_LEDS - 1); i >=0; i--){
-//    sparkleAt(i, leds, NUM_LEDS, 0, 0, 25, 350);
-//  }
-
-//  flashyShit(leds, NUM_LEDS, 2000);
-//  int randred = random8(50);
-//  int randgreen = random8(50);
-//  int randblue = random8(50);
-//  randomIndexFill(leds, NUM_LEDS, 0, 30, 10, 2600);
-
-//  void sparkleAt(int index, CRGB *leds, int numOfLeds, int red, int green, int blue, int ms){
-
-
-//  for (int i = 0; i < NUM_LEDS; i++){
-//    sparkleAt(i, leds, NUM_LEDS, 0, 0, 25, 350);
-//  }
-//
-//  for (int i = (NUM_LEDS - 1); i >=0; i--){
-//  sparkleAt(i, leds, NUM_LEDS, 0, 0, 25, 350);
-//  }
-  
-//  CRGB test = CRGB(10,10,10);
-//  
-//  for (int i = 0; i < NUM_LEDS; i++){
-//    leds[i] = test;
-//    FastLED.show();
-//    delay(500);
-//  }
-//  
-//  clearAll(leds, NUM_LEDS);
-  runner(leds, NUM_LEDS, CRGB(10,0,20), 3000);
+  runAllAnimations(leds, NUM_LEDS, 40, 3500);
 }
 
 void runner(CRGB *leds, int numOfLeds, CRGB color, int duration) {
@@ -285,7 +218,7 @@ void sparkleAtRandomIndex(CRGB *leds, int numOfLeds, CRGB color, int ms){
   sparkleAt(randomIndex, leds, numOfLeds, color, ms);
 }
 
-void flashyShit(CRGB *leds, int numOfLeds, int ms, int maxIntensity){
+void flashyShit(CRGB *leds, int numOfLeds, int maxIntensity, int ms){
   int middle = numOfLeds / 2;
   int randred,randgreen,randblue;
   
@@ -350,4 +283,33 @@ void clearAll(CRGB *leds, int numOfLeds){
     leds[i] = CRGB::Black;
   }
   FastLED.show();
+}
+
+CRGB randomColor(int maxIntensity){
+  if (maxIntensity <= 255){
+    int randred = random8(maxIntensity);
+    int randgreen = random8(maxIntensity);
+    int randblue = random8(maxIntensity);
+
+    return CRGB(randred, randgreen, randblue);
+  }else{
+    // u stupid
+    return CRGB::Black;
+  }
+
+}
+
+void runAllAnimations(CRGB *leds, int numOfLeds, int maxIntensity, int durationEach){
+
+  runner(leds, numOfLeds, randomColor(maxIntensity), durationEach);
+  progressbar(leds, numOfLeds, randomColor(maxIntensity), durationEach);
+  progressbarCentered(leds, numOfLeds, randomColor(maxIntensity), durationEach);
+  blinking(leds, numOfLeds, randomColor(maxIntensity), durationEach);
+  blinkingParts(leds, numOfLeds,5, randomColor(maxIntensity), durationEach);
+  pulse(leds, numOfLeds, randomColor(maxIntensity), durationEach);
+  sparkleAtRandomIndex(leds, numOfLeds, randomColor(maxIntensity), durationEach);
+  flashyShit(leds, numOfLeds,maxIntensity, durationEach);
+  randomIndexFill(leds, numOfLeds, randomColor(maxIntensity), durationEach);
+  clearAll(leds, numOfLeds);
+
 }

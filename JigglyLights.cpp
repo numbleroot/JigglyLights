@@ -42,6 +42,18 @@ CRGB JigglyLights::randomPrettyColor() {
 }
 
 
+void JigglyLights::clearAll(CRGB *leds, int numOfLeds) {
+
+  int i;
+
+  for(i = 0; i < numOfLeds; i++) {
+    leds[i] = CRGB::Black;
+  }
+
+  FastLED.show();
+}
+
+
 void JigglyLights::runner(CRGB *leds, int numOfLeds, CRGB color, int duration) {
 
   int i, wait;
@@ -360,18 +372,6 @@ void JigglyLights::randomIndexFill(CRGB *leds, int numOfLeds, CRGB color, int du
   }
 
   clearAll(leds, numOfLeds);
-}
-
-
-void JigglyLights::clearAll(CRGB *leds, int numOfLeds) {
-
-  int i;
-
-  for(i = 0; i < numOfLeds; i++) {
-    leds[i] = CRGB::Black;
-  }
-
-  FastLED.show();
 }
 
 

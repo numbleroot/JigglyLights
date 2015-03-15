@@ -32,6 +32,13 @@ class JigglyLights {
 
 
         /**
+         * clearAll
+         * Sets all LEDs to black (= nothing).
+         */
+        void clearAll(CRGB *leds, int numOfLeds);
+
+
+        /**
          * runner
          * Let one light run across the whole LED strip and come back. Shiny.
          */
@@ -93,13 +100,37 @@ class JigglyLights {
 
         /**
          * sparkleAtRandomIndex
-         *
+         * Same as sparkleAt but with an randomly chosen starting point.
          */
         void sparkleAtRandomIndex(CRGB *leds, int numOfLeds, CRGB color, int duration);
+
+
+        /**
+         * flashyShit
+         * Start from the center and spread one light which is a random color
+         * in each step to both sides of the strip.
+         */
         void flashyShit(CRGB *leds, int numOfLeds, int maxIntensity, int duration);
+
+
+        /**
+         * randomIndexFill
+         * Randomly fill the next LED until all LEDs are shining.
+         */
         void randomIndexFill(CRGB *leds, int numOfLeds, CRGB color, int duration);
-        void clearAll(CRGB *leds, int numOfLeds);
+
+
+        /**
+         * transition
+         * WIP: Smoothely go from one color of all LEDs to another.
+         */
         void transition(CRGB *leds, int numOfLeds, CRGB firstColor, CRGB secondColor, int duration);
+
+
+        /**
+         * runAllAnimations
+         * Collection of all effects above.
+         */
         void runAllAnimations(CRGB *leds, int numOfLeds, int maxIntensity, int durationEach);
 };
 

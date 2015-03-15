@@ -24,3 +24,7 @@ alle an aus (rhythmus?)
 loops through all functions
 
 #"random" array of nice colors
+
+##TODO
+*Test/Update Example file
+*Test/Update README

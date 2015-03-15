@@ -20,7 +20,7 @@ void setup() {
 }
 
 void loop() {
-  runAllAnimations(leds, NUM_LEDS, 40, 3500);
+  runAllAnimations(leds, NUM_LEDS, 40, 2000);
 }
 
 void runner(CRGB *leds, int numOfLeds, CRGB color, int duration) {
@@ -156,11 +156,11 @@ void blinkingParts(CRGB *leds, int numOfLeds, int parts, CRGB color, int duratio
   delay(wait);
 }
 
-//ms = time of pulse
 void pulse(CRGB *leds, int numOfLeds, CRGB color, int ms) {
-  int numOfSteps = 20;
 
-  for (int step = 0; step < numOfSteps; step++) {
+  int step, numOfSteps = 20;
+
+  for(step = 0; step < numOfSteps; step++) {
 
     int red = color.r;
     int green = color.g;
@@ -179,26 +179,26 @@ void pulse(CRGB *leds, int numOfLeds, CRGB color, int ms) {
   }
 }
 
+void sparkleAt(int index, CRGB *leds, int numOfLeds, CRGB color, int ms) {
 
-void sparkleAt(int index, CRGB *leds, int numOfLeds, CRGB color, int ms){
-  if (index >= numOfLeds){
+  if(index >= numOfLeds) {
     //out of bounds
-  }else{
-    int spread = 2;
-    int spreadIndex = 0;
+  } else {
+    int i, spread = 2, spreadIndex = 0;
 
     leds[index] = color;
     FastLED.show();
 
-    int i;
-    for (i =  1; i <= spread; i++){
-      delay(ms/(spread+1));
-      if (index - (i-1)>=0){
-        leds[index - (i-1)] = CRGB::Black;
+    for(i = 1; i <= spread; i++) {
+
+      delay(ms / (spread + 1));
+
+      if(index - (i - 1) >= 0) {
+        leds[index - (i - 1)] = CRGB::Black;
       }
 
-      if (index + (i-1)<numOfLeds){
-        leds[index + (i-1)] = CRGB::Black;
+      if(index + (i - 1) < numOfLeds) {
+        leds[index + (i - 1)] = CRGB::Black;
       }
 
       leds[index + i] = color;
@@ -207,112 +207,164 @@ void sparkleAt(int index, CRGB *leds, int numOfLeds, CRGB color, int ms){
       FastLED.show();
     }
 
-     delay(ms/(spread+1));
-      if (index - (i-1)>=0){
-        leds[index - (i-1)] = CRGB::Black;
-      }
+    delay(ms / (spread + 1));
 
-      if (index + (i-1)<numOfLeds){
-        leds[index + (i-1)] = CRGB::Black;
-      }
-
-      FastLED.show();
-
-  }
-}
-
-void sparkleAtRandomIndex(CRGB *leds, int numOfLeds, CRGB color, int ms){
-  int randomIndex = random8(numOfLeds);
-  sparkleAt(randomIndex, leds, numOfLeds, color, ms);
-}
-
-void flashyShit(CRGB *leds, int numOfLeds, int maxIntensity, int ms){
-  int middle = numOfLeds / 2;
-  int randred,randgreen,randblue;
-  
-  for (int i = 0; i < numOfLeds / 2; i ++){
-    randred = random8(maxIntensity);
-    randgreen = random8(maxIntensity);
-    randblue = random8(maxIntensity);
-    
-    leds[middle + i] = CRGB(randred,randgreen,randblue);
-    leds[middle - i] = CRGB(randred,randgreen,randblue);
-    FastLED.show();
-    delay(ms / (numOfLeds / 2));
-    
-    leds[middle + i] = CRGB::Black;
-    leds[middle - i] = CRGB::Black;
-    FastLED.show();
-  }
-  
-  for (int i = numOfLeds / 2; i >= 0; i --){
-    randred = random8(maxIntensity);
-    randgreen = random8(maxIntensity);
-    randblue = random8(maxIntensity);
-    
-    leds[middle + i] = CRGB(randred,randgreen,randblue);
-    leds[middle - i] = CRGB(randred,randgreen,randblue);
-    FastLED.show();
-    delay(ms / (numOfLeds / 2));
-    
-    leds[middle + i] = CRGB::Black;
-    leds[middle - i] = CRGB::Black;
-    FastLED.show();
-  
-  }
-}
-
-void randomIndexFill(CRGB *leds, int numOfLeds, CRGB color, int ms){
-  int ledsOn[numOfLeds];
-  memset(ledsOn, 0, sizeof(ledsOn));
-  int onCounter = 0;
-
-  while (onCounter < numOfLeds){
-    int randomIndex = random8(numOfLeds);
-    if (ledsOn[randomIndex] == 0){
-      leds[randomIndex] = color;
-      FastLED.show();
-      
-      ledsOn[randomIndex] = 1;
-      onCounter ++;
-      
-      delay(ms / numOfLeds);
+    if(index - (i - 1) >= 0) {
+      leds[index - (i - 1)] = CRGB::Black;
     }
 
-  }
-  
-  clearAll(leds, numOfLeds);
-  
+    if(index + (i - 1) < numOfLeds) {
+      leds[index + (i - 1)] = CRGB::Black;
+    }
 
+    FastLED.show();
+  }
 }
 
-void clearAll(CRGB *leds, int numOfLeds){
-  for (int i = 0; i < numOfLeds; i++){
+void sparkleAtRandomIndex(CRGB *leds, int numOfLeds, CRGB color, int duration) {
+  int randomIndex = random8(numOfLeds);
+  sparkleAt(randomIndex, leds, numOfLeds, color, duration);
+}
+
+void flashyShit(CRGB *leds, int numOfLeds, int maxIntensity, int duration) {
+
+  int i, randred, randgreen, randblue;
+  int middle = numOfLeds / 2;
+
+  for(i = 0; i < (numOfLeds / 2); i++) {
+    randred = random8(maxIntensity);
+    randgreen = random8(maxIntensity);
+    randblue = random8(maxIntensity);
+
+    leds[middle + i] = CRGB(randred, randgreen, randblue);
+    leds[middle - i] = CRGB(randred, randgreen, randblue);
+    FastLED.show();
+
+    delay(duration / (numOfLeds / 2));
+
+    leds[middle + i] = CRGB::Black;
+    leds[middle - i] = CRGB::Black;
+
+    FastLED.show();
+  }
+
+  for(i = (numOfLeds / 2); i >= 0; i--) {
+
+    randred = random8(maxIntensity);
+    randgreen = random8(maxIntensity);
+    randblue = random8(maxIntensity);
+
+    leds[middle + i] = CRGB(randred, randgreen, randblue);
+    leds[middle - i] = CRGB(randred, randgreen, randblue);
+    FastLED.show();
+
+    delay(duration / (numOfLeds / 2));
+
+    leds[middle + i] = CRGB::Black;
+    leds[middle - i] = CRGB::Black;
+
+    FastLED.show();
+  }
+}
+
+void randomIndexFill(CRGB *leds, int numOfLeds, CRGB color, int duration) {
+
+  int ledsOn[numOfLeds];
+  int randomIndex, onCounter = 0;
+
+  memset(ledsOn, 0, sizeof(ledsOn));
+
+  while(onCounter < numOfLeds) {
+
+    randomIndex = random8(numOfLeds);
+
+    if(ledsOn[randomIndex] == 0) {
+      leds[randomIndex] = color;
+      FastLED.show();
+
+      ledsOn[randomIndex] = 1;
+      onCounter++;
+
+      delay(ms / numOfLeds);
+    }
+  }
+
+  clearAll(leds, numOfLeds);
+}
+
+void clearAll(CRGB *leds, int numOfLeds) {
+
+  int i;
+
+  for(i = 0; i < numOfLeds; i++) {
     leds[i] = CRGB::Black;
   }
+
   FastLED.show();
 }
 
-CRGB randomColor(int maxIntensity){
-  if (maxIntensity <= 255){
-    int randred = random8(maxIntensity);
-    int randgreen = random8(maxIntensity);
-    int randblue = random8(maxIntensity);
+void transition(CRGB *leds, int numOfLeds, CRGB firstColor, CRGB secondColor, int duration) {
 
-    return CRGB(randred, randgreen, randblue);
-  }else{
+  int i, wait, deltaRed, deltaGreen, deltaBlue;
+
+  wait = duration / 20;
+  deltaRed = (secondColor.r - firstColor.r) / 20;
+  deltaGreen = (secondColor.g - firstColor.g) / 20;
+  deltaBlue = (secondColor.b - firstColor.b) / 20;
+
+  for(i = 0; i < numOfLeds; i++) {
+
+    leds[i] = firstColor;
+  }
+
+  FastLED.show();
+  delay(wait);
+
+  for(i = 0; i < numOfLeds; i++) {
+
+    leds[i].r += deltaRed;
+    leds[i].g += deltaGreen;
+    leds[i].b += deltaBlue;
+  }
+
+  FastLED.show();
+  delay(wait);
+
+  for(i = 0; i < numOfLeds; i++) {
+
+    leds[i].setRGB(0, 0, 0);
+  }
+
+  FastLED.show();
+  delay(wait);
+}
+
+CRGB randomColor(int maxIntensity) {
+
+  int randRed, randGreen, randBlue;
+
+  if(maxIntensity <= 255) {
+    randRed = random8(maxIntensity);
+    randGreen = random8(maxIntensity);
+    randBlue = random8(maxIntensity);
+
+    return CRGB(randRed, randGreen, randBlue);
+  } else {
     // u stupid
     return CRGB::Black;
   }
-
 }
 
-CRGB randomPrettyColor(){
-  int randomIndex = random8(sizeof(prettyColors) / sizeof(prettyColors[0]));
+CRGB randomPrettyColor() {
+
+  int randomIndex;
+
+  randomIndex = random8(sizeof(prettyColors) / sizeof(prettyColors[0]));
+
   return prettyColors[randomIndex];
 }
 
-void runAllAnimations(CRGB *leds, int numOfLeds, int maxIntensity, int durationEach){
+void runAllAnimations(CRGB *leds, int numOfLeds, int maxIntensity, int durationEach) {
 
   runner(leds, numOfLeds, randomColor(maxIntensity), durationEach);
   progressbar(leds, numOfLeds, randomColor(maxIntensity), durationEach);
@@ -324,5 +376,4 @@ void runAllAnimations(CRGB *leds, int numOfLeds, int maxIntensity, int durationE
   flashyShit(leds, numOfLeds,maxIntensity, durationEach);
   randomIndexFill(leds, numOfLeds, randomColor(maxIntensity), durationEach);
   clearAll(leds, numOfLeds);
-
 }

@@ -48,28 +48,29 @@ void loop() {
 //  for (int i = 0; i < NUM_LEDS; i++){
 //    sparkleAt(i, leds, NUM_LEDS, 0, 0, 25, 350);
 //  }
-//  
+//
 //  for (int i = (NUM_LEDS - 1); i >=0; i--){
 //    sparkleAt(i, leds, NUM_LEDS, 0, 0, 25, 350);
 //  }
 
-  flashyShit(leds, NUM_LEDS, 2000);
+//  flashyShit(leds, NUM_LEDS, 2000);
 //  int randred = random8(50);
 //  int randgreen = random8(50);
 //  int randblue = random8(50);
-  randomIndexFill(leds, NUM_LEDS, 0, 30, 10, 2600);
+//  randomIndexFill(leds, NUM_LEDS, 0, 30, 10, 2600);
 
 //  void sparkleAt(int index, CRGB *leds, int numOfLeds, int red, int green, int blue, int ms){
 
 
-  for (int i = 0; i < NUM_LEDS; i++){
-    sparkleAt(i, leds, NUM_LEDS, 0, 0, 25, 350);
-  }
+//  for (int i = 0; i < NUM_LEDS; i++){
+//    sparkleAt(i, leds, NUM_LEDS, 0, 0, 25, 350);
+//  }
 
-  for (int i = (NUM_LEDS - 1); i >=0; i--){
-  sparkleAt(i, leds, NUM_LEDS, 0, 0, 25, 350);
-  }
+//  for (int i = (NUM_LEDS - 1); i >=0; i--){
+//    sparkleAt(i, leds, NUM_LEDS, 0, 0, 25, 350);
+//  }
 
+  progressbar(leds, NUM_LEDS, 40, 0, 0, 2000);
 }
 
 void runner(CRGB *leds, int numOfLeds, int red, int green, int blue, int duration) {
@@ -274,36 +275,36 @@ void sparkleAtRandomIndex(CRGB *leds, int numOfLeds, int red, int green, int blu
 void flashyShit(CRGB *leds, int numOfLeds, int ms){
   int middle = numOfLeds / 2;
   int randred,randgreen,randblue;
-  
+
   for (int i = 0; i < numOfLeds / 2; i ++){
     randred = random8(7);
     randgreen = random8(7);
     randblue = random8(7);
-    
+
     leds[middle + i].setRGB(randred,randgreen,randblue);
     leds[middle - i].setRGB(randred,randgreen,randblue);
     FastLED.show();
     delay(ms / (numOfLeds / 2));
-    
+
     leds[middle + i].setRGB(0,0,0);
     leds[middle - i].setRGB(0,0,0);
     FastLED.show();
   }
-  
+
   for (int i = numOfLeds / 2; i >= 0; i --){
     randred = random8(7);
     randgreen = random8(7);
     randblue = random8(7);
-    
+
     leds[middle + i].setRGB(randred,randgreen,randblue);
     leds[middle - i].setRGB(randred,randgreen,randblue);
     FastLED.show();
     delay(ms / (numOfLeds / 2));
-    
+
     leds[middle + i].setRGB(0,0,0);
     leds[middle - i].setRGB(0,0,0);
     FastLED.show();
-  
+
   }
 }
 
@@ -317,17 +318,17 @@ void randomIndexFill(CRGB *leds, int numOfLeds, int red, int green, int blue, in
     if (ledsOn[randomIndex] == 0){
       leds[randomIndex].setRGB(red, green, blue);
       FastLED.show();
-      
+
       ledsOn[randomIndex] = 1;
       onCounter ++;
-      
+
       delay(ms / numOfLeds);
     }
 
   }
-  
+
   clearAll(leds, numOfLeds);
-  
+
 
 }
 
@@ -336,4 +337,41 @@ void clearAll(CRGB *leds, int numOfLeds){
     leds[i].setRGB(0,0,0);
   }
   FastLED.show();
+}
+
+
+void transition(CRGB *leds, int numOfLeds, CRGB firstColor, CRGB secondColor, int duration) {
+
+  int i, wait, deltaRed, deltaGreen, deltaBlue;
+
+  wait = duration / 20;
+  deltaRed = (secondColor.r - firstColor.r) / 20;
+  deltaGreen = (secondColor.g - firstColor.g) / 20;
+  deltaBlue = (secondColor.b - firstColor.b) / 20;
+
+  for(i = 0; i < numOfLeds; i++) {
+
+    leds[i] = firstColor;
+  }
+
+  FastLED.show();
+  delay(wait);
+
+  for(i = 0; i < numOfLeds; i++) {
+
+    leds[i].r += deltaRed;
+    leds[i].g += deltaGreen;
+    leds[i].b += deltaBlue;
+  }
+
+  FastLED.show();
+  delay(wait);
+
+  for(i = 0; i < numOfLeds; i++) {
+
+    leds[i].setRGB(0, 0 , 0);
+  }
+
+  FastLED.show();
+  delay(wait);
 }

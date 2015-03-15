@@ -13,7 +13,8 @@ JigglyLights is an LED animation library for the WS2812 LED strip (and strips of
 * Add your LED strip in the setup() - function (like [this](https://github.com/FastLED/FastLED#simple-example))  
 
 ## Basic usage
-```
+
+```C++
 JigglyLights jiggly;
 jiggly.runner(leds, NUM_LEDS, CRGB::Red, 1000);
 ```
@@ -22,7 +23,7 @@ See [JigglyLights.h](https://github.com/lenny-code/JigglyLights/blob/master/Jigg
  
 ## Example
 
-```
+```C++
 #include <FastLED.h>
 #include <JigglyLights.h>
 

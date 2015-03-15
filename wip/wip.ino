@@ -1,9 +1,11 @@
+#include <JigglyLights.h>
 #include <FastLED.h>
 
 #define PIN 6
 #define NUM_LEDS 31
 
 CRGB leds[NUM_LEDS];
+JigglyLights jiggly;
 
 
 void setup() {
@@ -11,5 +13,5 @@ void setup() {
 }
 
 void loop() {
-  runAllAnimations(leds, NUM_LEDS, 40, 2000);
+  jiggly.runAllAnimations(leds, NUM_LEDS, 40, 2000);
 }

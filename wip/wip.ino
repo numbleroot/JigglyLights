@@ -44,13 +44,17 @@ void loop() {
 
 //  sparkleAt(10, leds, NUM_LEDS, 25, 0, 0, 1000);
 //  sparkleAtRandomIndex(leds, NUM_LEDS, 25, 0, 0, 500);
-  for (int i = 0; i < NUM_LEDS; i++){
-    sparkleAt(i, leds, NUM_LEDS, 0, 0, 25, 350);
-  }
-  
-  for (int i = (NUM_LEDS - 1); i >=0; i--){
-    sparkleAt(i, leds, NUM_LEDS, 0, 0, 25, 350);
-  }
+
+
+//  for (int i = 0; i < NUM_LEDS; i++){
+//    sparkleAt(i, leds, NUM_LEDS, 0, 0, 25, 350);
+//  }
+//  
+//  for (int i = (NUM_LEDS - 1); i >=0; i--){
+//    sparkleAt(i, leds, NUM_LEDS, 0, 0, 25, 350);
+//  }
+
+  flashyShit(leds, NUM_LEDS, 2000);
 
 //  void sparkleAt(int index, CRGB *leds, int numOfLeds, int red, int green, int blue, int ms){
 
@@ -247,4 +251,38 @@ void sparkleAtRandomIndex(CRGB *leds, int numOfLeds, int red, int green, int blu
   sparkleAt(randomIndex, leds, numOfLeds, red, green, blue, ms);
 }
 
-
+void flashyShit(CRGB *leds, int numOfLeds, int ms){
+  int middle = numOfLeds / 2;
+  int randred,randgreen,randblue;
+  
+  for (int i = 0; i < numOfLeds / 2; i ++){
+    randred = random8(7);
+    randgreen = random8(7);
+    randblue = random8(7);
+    
+    leds[middle + i].setRGB(randred,randgreen,randblue);
+    leds[middle - i].setRGB(randred,randgreen,randblue);
+    FastLED.show();
+    delay(ms / (numOfLeds / 2));
+    
+    leds[middle + i].setRGB(0,0,0);
+    leds[middle - i].setRGB(0,0,0);
+    FastLED.show();
+  }
+  
+  for (int i = numOfLeds / 2; i >= 0; i --){
+    randred = random8(7);
+    randgreen = random8(7);
+    randblue = random8(7);
+    
+    leds[middle + i].setRGB(randred,randgreen,randblue);
+    leds[middle - i].setRGB(randred,randgreen,randblue);
+    FastLED.show();
+    delay(ms / (numOfLeds / 2));
+    
+    leds[middle + i].setRGB(0,0,0);
+    leds[middle - i].setRGB(0,0,0);
+    FastLED.show();
+  
+  }
+}

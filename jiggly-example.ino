@@ -9,6 +9,8 @@
 
 //LED array to individually address LEDs
 CRGB leds[NUM_LEDS];
+//jiggly instance to call the functions from
+JigglyLights jiggly;
 
 
 void setup() {
@@ -18,8 +20,8 @@ void setup() {
 
 void loop() {
 
-  //call JigglyLights animations like this
-  JigglyLights.runner(leds, NUM_LEDS, CRGB::Red, 1000);
-  
+  //call JigglyLights animations through an instance like this
+  jiggly.runner(leds, NUM_LEDS, CRGB::Red, 1000);
+
   //see JigglyLights.h for animation documentation
 }

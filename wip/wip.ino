@@ -6,6 +6,14 @@
 
 CRGB leds[NUM_LEDS];
 
+//to be expanded!
+CRGB prettyColors = {
+  CRGB::Red,
+  CRGB::Salmon,
+  CRGB::SeaGreen,
+  CRGB::YellowGreen
+}
+
 
 void setup() {
   FastLED.addLeds<NEOPIXEL, PIN>(leds, NUM_LEDS);
@@ -297,6 +305,11 @@ CRGB randomColor(int maxIntensity){
     return CRGB::Black;
   }
 
+}
+
+CRGB randomPrettyColor(){
+  int randomIndex = random8(sizeof(prettyColors) / sizeof(prettyColors[0]));
+  return prettyColors[randomIndex];
 }
 
 void runAllAnimations(CRGB *leds, int numOfLeds, int maxIntensity, int durationEach){

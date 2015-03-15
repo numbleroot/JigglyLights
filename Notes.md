@@ -4,27 +4,26 @@
 ## Animations
 
 
-
 ## Ideas
 
-#Filler/Progress ding
-Fuellt sich und baut sich wieder ab (ladebalken)
+### Filler / Progress ding
+Füllt sich und baut sich wieder ab (Ladebalken)
 
 
-#Sparkles dinger 
-funkeln
+### Sparkles dinger
+Funkeln
 
-#Middle out
-von der mitte nach aussen (und zurueck?)
+### Middle out
+Von der mitte nach außen (und zurück?)
 
-#blink 
-alle an aus (rhythmus?)
+### Blink
+Alle an aus (Rhythmus?)
 
-#test function
-loops through all functions
+### Test function
+Loops through all functions
 
-#"random" array of nice colors
+### "Random" array of nice colors
 
-##TODO
+### TODO
 *Test/Update Example file
 *Test/Update README

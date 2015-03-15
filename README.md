@@ -14,7 +14,7 @@ It is based on the [FastLED Arduino library](http://fastled.io/).
 * Add your LED strip in the setup() - function (like [this](https://github.com/FastLED/FastLED#simple-example))  
 
 ##Basic usage
- `JigglyLights jiggly;` 
+ `JigglyLights jiggly;`  
  `jiggly.runner(leds, NUM_LEDS, CRGB::Red, 1000);`  
  
  See [JigglyLights.h](https://github.com/lenny-code/JigglyLights/blob/master/JigglyLights.h) for animations and their specific usage.

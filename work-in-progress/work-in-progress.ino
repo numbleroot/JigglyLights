@@ -14,8 +14,8 @@ void setup() {
 
 
 void loop() {
-//  jiggly.runAllAnimations(leds, NUM_LEDS, 40, 2000);
-  chimes();
+  jiggly.runAllAnimations(leds, NUM_LEDS, 40, 2000);
+//  chimes();
 }
 
 

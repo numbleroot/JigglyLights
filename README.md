@@ -1,6 +1,6 @@
 # JigglyLights
 
-JigglyLights is an LED animation library for the WS2812 LED strip (and strips of similar kind), executed through an Arduino controller. It is based on the [FastLED Arduino library](http://fastled.io/).
+JigglyLights is an LED animation library for the WS2812b LED strip (and strips of similar kind), executed through an Arduino controller. It is based on the [FastLED Arduino library](http://fastled.io/).
 
 ## Setup
 * Clone the repo to a location of choice  
@@ -27,29 +27,29 @@ See [JigglyLights.h](https://github.com/lenny-code/JigglyLights/blob/master/Jigg
 #include <FastLED.h>
 #include <JigglyLights.h>
 
-// The GPIO PIN you've attached the LED strip to
+/* The GPIO PIN you've attached the LED strip to. */
 #define PIN 6
 
-// Number of LEDs of your strip
+/* Number of LEDs of your strip. */
 #define NUM_LEDS 31
 
-// LED array to individually address LEDs
+/* LED array to individually address LEDs. */
 CRGB leds[NUM_LEDS];
-// Jiggly instance to call the functions from
+/* Jiggly instance to call the functions from. */
 JigglyLights jiggly;
 
 
 void setup() {
-  // See FastLED repo for details
+  /* See FastLED repo for details. */
   FastLED.addLeds<NEOPIXEL, PIN>(leds, NUM_LEDS);
 }
 
 void loop() {
 
-  // Call JigglyLights animations through an instance like this
+  /* Call JigglyLights animations through an instance like this. */
   jiggly.runner(leds, NUM_LEDS, CRGB::Red, 1000);
 
-  // See JigglyLights.h for animation documentation
+  /* See JigglyLights.h for animation documentation. */
 }
 ```
 

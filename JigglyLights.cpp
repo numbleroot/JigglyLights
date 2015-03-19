@@ -507,6 +507,44 @@ void JigglyLights::matrixWave(CRGB *leds, int leds_x, int leds_y, CRGB color, in
     }
   }
 
+  for(i = (limit - 1); i >= 0; i--) {
+
+    for(x = 0; x < leds_x; x++) {
+
+      for(y = 0; y < leds_y; y++) {
+
+        ledIndex = calcMatrixIndex(x, y, leds_x);
+        stateIndex = (x + i) % limit;
+
+        if(y < blinks[stateIndex]) {
+          leds[ledIndex] = color;
+        }
+        else {
+          leds[ledIndex] = CRGB(0, 0, 0);
+        }
+      }
+    }
+
+    FastLED.show();
+    delay(duration / leds_x);
+  }
+}
+
+
+void JigglyLights::matrixWaveInverted(CRGB *leds, int leds_x, int leds_y, CRGB color, int duration) {
+
+  int i, x, y, ledIndex, stateIndex, limit = (2 * (leds_y - 1));
+  int blinks[limit];
+
+  for(x = 0; x < leds_y; x++) {
+
+    blinks[x] = (x + 1);
+
+    if(x != 0) {
+      blinks[(limit - x)] = (x + 1);
+    }
+  }
+
   for(i = 0; i < limit; i++) {
 
     for(x = 0; x < leds_x; x++) {

@@ -151,11 +151,18 @@ class JigglyLights {
 
 
         /**
-         * wave
+         * matrixWave
          * Take this LED thing two-dimensional! Run a wave across the strip.
          * Provide the dimensions of your matrix and see how the wave builds up.
          */
         void matrixWave(CRGB *leds, int leds_x, int leds_y, CRGB color, int duration);
+
+
+        /**
+         * matrixWaveInverted
+         * Same as matrixWave but in the other direction.
+         */
+        void matrixWaveInverted(CRGB *leds, int leds_x, int leds_y, CRGB color, int duration);
 
 
         /**

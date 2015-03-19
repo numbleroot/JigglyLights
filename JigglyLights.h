@@ -192,6 +192,13 @@ class JigglyLights {
          * Same as progressbarCentered but for a matrix.
          */
         void matrixProgressbarCentered(CRGB *leds, int leds_x, int leds_y, CRGB color, int duration);
+
+
+        /**
+         * matrixLevel
+         * Let a bar rise up and down on your matrix.
+         */
+        void matrixLevel(CRGB *leds, int leds_x, int leds_y, CRGB color, int duration);
 };
 
 #endif

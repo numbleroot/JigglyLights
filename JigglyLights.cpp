@@ -42,6 +42,22 @@ CRGB JigglyLights::randomPrettyColor() {
 }
 
 
+int JigglyLights::calcMatrixIndex(int x, int y, int leds_x) {
+
+    int res = (y * leds_x);
+    leds_x--;
+
+    if((y % 2) == 0) {
+      res += x;
+    }
+    else {
+      res += (leds_x - x);
+    }
+
+    return res;
+}
+
+
 void JigglyLights::clearAll(CRGB *leds, int numOfLeds) {
 
   int i;
@@ -425,4 +441,79 @@ void JigglyLights::runAllAnimations(CRGB *leds, int numOfLeds, int maxIntensity,
   flashyShit(leds, numOfLeds,maxIntensity, durationEach);
   randomIndexFill(leds, numOfLeds, randomColor(maxIntensity), durationEach);
   clearAll(leds, numOfLeds);
+}
+
+
+void JigglyLights::chimes(CRGB *leds, int numOfLeds) {
+
+  int i;
+
+  runner(leds, numOfLeds, CRGB(70, 0, 100), 6600);
+  runner(leds, numOfLeds, CRGB(100, 60, 10), 6600);
+
+  flashyShit(leds, numOfLeds, 50, 6600);
+  flashyShit(leds, numOfLeds, 50, 6600);
+
+  progressbarCentered(leds, numOfLeds, CRGB(30, 0, 100), 3300);
+  delay(390);
+  for(i = 0; i < 3; i++) {
+    blinking(leds, numOfLeds, CRGB(0, 60, 100), 200);
+  }
+  blinking(leds, numOfLeds, CRGB(0, 60, 100), 300);
+  blinking(leds, numOfLeds, CRGB(0, 60, 100), 210);
+
+  progressbarCentered(leds, numOfLeds, CRGB(100, 0, 0), 3300);
+  delay(395);
+  for(i = 0; i < 3; i++) {
+    blinking(leds, numOfLeds, CRGB(100, 20, 20), 200);
+  }
+  blinking(leds, numOfLeds, CRGB(100, 20, 20), 300);
+  blinking(leds, numOfLeds, CRGB(100, 20, 20), 210);
+
+  progressbarCentered(leds, numOfLeds, CRGB(0, 100, 30), 3300);
+  delay(395);
+  for(i = 0; i < 3; i++) {
+    blinking(leds, numOfLeds, CRGB(0, 100, 40), 200);
+  }
+  blinking(leds, numOfLeds, CRGB(0, 100, 40), 300);
+  blinking(leds, numOfLeds, CRGB(0, 100, 40), 210);
+  delay(10000);
+}
+
+
+void JigglyLights::matrixWave(CRGB *leds, int leds_x, int leds_y, CRGB color, int duration) {
+
+  int i, x, y, ledIndex, stateIndex, limit = (2 * (leds_y - 1));
+  int blinks[limit];
+
+  for(x = 0; x < leds_y; x++) {
+
+    blinks[x] = (x + 1);
+
+    if(x != 0) {
+      blinks[(limit - x)] = (x + 1);
+    }
+  }
+
+  for(i = 0; i < limit; i++) {
+
+    for(x = 0; x < leds_x; x++) {
+
+      for(y = 0; y < leds_y; y++) {
+
+        ledIndex = calcMatrixIndex(x, y, leds_x);
+        stateIndex = (x + i) % limit;
+
+        if(y < blinks[stateIndex]) {
+          leds[ledIndex] = color;
+        }
+        else {
+          leds[ledIndex] = CRGB(0, 0, 0);
+        }
+      }
+    }
+
+    FastLED.show();
+    delay(duration / leds_x);
+  }
 }

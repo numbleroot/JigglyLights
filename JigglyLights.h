@@ -32,6 +32,14 @@ class JigglyLights {
 
 
         /**
+         * calcMatrixIndex
+         * Calculate the index of one light on an continous soldered
+         * LED matrix.
+         */
+        int calcMatrixIndex(int x, int y, int leds_x);
+
+
+        /**
          * clearAll
          * Sets all LEDs to black (= nothing).
          */
@@ -132,6 +140,21 @@ class JigglyLights {
          * Collection of all effects above.
          */
         void runAllAnimations(CRGB *leds, int numOfLeds, int maxIntensity, int durationEach);
+
+
+        /**
+         * chimes
+         * Have some beautiful effects to the first ca. 55 seconds of "Chimes".
+         */
+        void chimes(CRGB *leds, int numOfLeds);
+
+
+        /**
+         * wave
+         * Take this LED thing two-dimensional! Run a wave across the strip.
+         * Provide the dimensions of your matrix and see how the wave builds up.
+         */
+        void matrixWave(CRGB *leds, int leds_x, int leds_y, CRGB color, int duration);
 };
 
 #endif

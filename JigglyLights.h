@@ -156,6 +156,21 @@ class JigglyLights {
          * Provide the dimensions of your matrix and see how the wave builds up.
          */
         void matrixWave(CRGB *leds, int leds_x, int leds_y, CRGB color, int duration);
+
+
+        /**
+         * matrixWaveOne
+         * Run one bar over the LED matrix.
+         */
+        void matrixWaveOne(CRGB *leds, int leds_x, int leds_y, CRGB color, int duration);
+
+
+        /**
+         * matrixWaveOneRandom
+         * For each coloumn of your LED matrix choose a random amount between 1 and leds_y
+         * of LEDs to light up on that coloumn. Other than that, same as matrixWaveOne.
+         */
+        void matrixWaveOneRandom(CRGB *leds, int leds_x, int leds_y, CRGB color, int duration);
 };
 
 #endif

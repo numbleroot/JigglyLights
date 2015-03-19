@@ -93,10 +93,11 @@ class JigglyLights {
 
 
         /**
-         * pulse
-         * WIP: Will make the LEDs glow in color for duration ms long.
+         * glow
+         * Let your LEDs glow steadily in the given duration intervall.
+         * Somewhat like a notification pulse.
          */
-        void pulse(CRGB *leds, int numOfLeds, CRGB color, int duration);
+        void glow(CRGB *leds, int num_leds, CRGB color, int duration);
 
 
         /**

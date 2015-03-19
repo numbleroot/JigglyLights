@@ -246,28 +246,40 @@ void JigglyLights::blinkingParts(CRGB *leds, int numOfLeds, int parts, CRGB colo
 }
 
 
-void JigglyLights::pulse(CRGB *leds, int numOfLeds, CRGB color, int duration) {
+void JigglyLights::glow(CRGB *leds, int num_leds, CRGB color, int duration) {
 
-  int i, step, numOfSteps = 20;
-  int red, green, blue;
-  int tempRed, tempGreen, tempBlue;
+  int i, u, highest;
 
-  for(step = 0; step < numOfSteps; step++) {
+  highest = color.r;
 
-    red = color.r;
-    green = color.g;
-    blue = color.b;
+  if(color.b > highest) {
+    highest = color.b;
+  }
 
-    tempRed = red - (step * (red / numOfSteps));
-    tempGreen = green - (step * (green / numOfSteps));
-    tempBlue = blue - (step * (blue / numOfSteps));
+  if(color.g > highest) {
+    highest = color.g;
+  }
 
-    for(i = 0; i < numOfLeds; i++) {
-      leds[i] = CRGB(tempRed, tempGreen, tempBlue);
+  for(i = 0; i < num_leds; i++) {
+
+    leds[i] = color;
+  }
+
+  FastLED.show();
+  delay(duration / 5);
+
+
+  for(u = highest; u > 1; u--) {
+
+    for(i = 0; i < num_leds; i++) {
+
+      leds[i].r = (leds[i].r-- > 1) ? leds[i].r-- : 1;
+      leds[i].g = (leds[i].g-- > 1) ? leds[i].g-- : 1;
+      leds[i].b = (leds[i].b-- > 1) ? leds[i].b-- : 1;
     }
 
     FastLED.show();
-    delay(duration / numOfSteps);
+    delay(30);
   }
 }
 
@@ -435,8 +447,8 @@ void JigglyLights::runAllAnimations(CRGB *leds, int numOfLeds, int maxIntensity,
   progressbar(leds, numOfLeds, randomColor(maxIntensity), durationEach);
   progressbarCentered(leds, numOfLeds, randomColor(maxIntensity), durationEach);
   blinking(leds, numOfLeds, randomColor(maxIntensity), durationEach);
-  blinkingParts(leds, numOfLeds,5, randomColor(maxIntensity), durationEach);
-  pulse(leds, numOfLeds, randomColor(maxIntensity), durationEach);
+  blinkingParts(leds, numOfLeds, 5, randomColor(maxIntensity), durationEach);
+  glow(leds, numOfLeds, randomColor(maxIntensity), durationEach);
   sparkleAtRandomIndex(leds, numOfLeds, randomColor(maxIntensity), durationEach);
   flashyShit(leds, numOfLeds,maxIntensity, durationEach);
   randomIndexFill(leds, numOfLeds, randomColor(maxIntensity), durationEach);

@@ -28,5 +28,5 @@ void setup() {
 
 
 void loop() {
-  jiggly.matrixWave(leds, LEDS_X, LEDS_Y, CRGB(10, 0, 0), 800);
+  jiggly.glow(leds, NUM_LEDS, CRGB(20, 0, 0), 6000);
 }

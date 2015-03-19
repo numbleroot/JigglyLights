@@ -28,5 +28,5 @@ void setup() {
 
 
 void loop() {
-  jiggly.matrixWaveOneRandom(leds, LEDS_X, LEDS_Y, CRGB(10, 10, 0), 1000);
+  jiggly.matrixProgressbarCentered(leds, LEDS_X, LEDS_Y, CRGB(0, 0, 2), 3000);
 }

@@ -33,7 +33,7 @@ class JigglyLights {
 
         /**
          * calcMatrixIndex
-         * Calculate the index of one light on an continous soldered
+         * Calculate the index of one light on a continous soldered
          * LED matrix.
          */
         int calcMatrixIndex(int x, int y, int leds_x);
@@ -171,6 +171,20 @@ class JigglyLights {
          * of LEDs to light up on that coloumn. Other than that, same as matrixWaveOne.
          */
         void matrixWaveOneRandom(CRGB *leds, int leds_x, int leds_y, CRGB color, int duration);
+
+
+        /**
+         * matrixProgressbar
+         * Same as progressbar but for a matrix.
+         */
+        void matrixProgressbar(CRGB *leds, int leds_x, int leds_y, CRGB color, int duration);
+
+
+        /**
+         * matrixProgressbarCentered
+         * Same as progressbarCentered but for a matrix.
+         */
+        void matrixProgressbarCentered(CRGB *leds, int leds_x, int leds_y, CRGB color, int duration);
 };
 
 #endif

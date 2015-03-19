@@ -140,28 +140,28 @@ void JigglyLights::progressbar(CRGB *leds, int numOfLeds, CRGB color, int durati
 
   wait = duration / (numOfLeds * 4);
 
-  for (i = 0; i < numOfLeds; i++) {
+  for(i = 0; i < numOfLeds; i++) {
 
     leds[i] = color;
     FastLED.show();
     delay(wait);
   }
 
-  for (i = 0; i < numOfLeds; i++) {
+  for(i = 0; i < numOfLeds; i++) {
 
     leds[i] = CRGB::Black;
     FastLED.show();
     delay(wait);
   }
 
-  for (i = numOfLeds; i >= 0; i--) {
+  for(i = numOfLeds; i >= 0; i--) {
 
     leds[i] = color;
     FastLED.show();
     delay(wait);
   }
 
-  for (i = numOfLeds; i >= 0; i--) {
+  for(i = numOfLeds; i >= 0; i--) {
 
     leds[i] = CRGB::Black;
     FastLED.show();
@@ -177,7 +177,7 @@ void JigglyLights::progressbarCentered(CRGB *leds, int numOfLeds, CRGB color, in
   center = numOfLeds / 2;
   wait = duration / (numOfLeds * 2);
 
-  for (i = center; i < numOfLeds; i++) {
+  for(i = center; i < numOfLeds; i++) {
 
     inv = (numOfLeds - i) - 1;
     leds[i] = color;
@@ -186,7 +186,7 @@ void JigglyLights::progressbarCentered(CRGB *leds, int numOfLeds, CRGB color, in
     delay(wait);
   }
 
-  for (i = (numOfLeds - 1); i >= center; i--) {
+  for(i = (numOfLeds - 1); i >= center; i--) {
 
     inv = (numOfLeds - i) - 1;
     leds[i] = CRGB::Black;
@@ -203,7 +203,7 @@ void JigglyLights::blinking(CRGB *leds, int numOfLeds, CRGB color, int duration)
 
   wait = duration / 2;
 
-  for (i = 0; i < numOfLeds; i++) {
+  for(i = 0; i < numOfLeds; i++) {
 
     leds[i] = color;
   }
@@ -211,7 +211,7 @@ void JigglyLights::blinking(CRGB *leds, int numOfLeds, CRGB color, int duration)
   FastLED.show();
   delay(wait);
 
-  for (i = 0; i < numOfLeds; i++) {
+  for(i = 0; i < numOfLeds; i++) {
 
     leds[i] = CRGB::Black;
   }
@@ -228,7 +228,7 @@ void JigglyLights::blinkingParts(CRGB *leds, int numOfLeds, int parts, CRGB colo
   steps = numOfLeds / parts;
   wait = duration / 2;
 
-  for (i = 0; i < numOfLeds; i += steps) {
+  for(i = 0; i < numOfLeds; i += steps) {
 
     leds[i] = color;
   }
@@ -236,7 +236,7 @@ void JigglyLights::blinkingParts(CRGB *leds, int numOfLeds, int parts, CRGB colo
   FastLED.show();
   delay(wait);
 
-  for (i = 0; i < numOfLeds; i += steps) {
+  for(i = 0; i < numOfLeds; i += steps) {
 
     leds[i] = CRGB::Black;
   }
@@ -246,7 +246,7 @@ void JigglyLights::blinkingParts(CRGB *leds, int numOfLeds, int parts, CRGB colo
 }
 
 
-void JigglyLights::glow(CRGB *leds, int num_leds, CRGB color, int duration) {
+void JigglyLights::glow(CRGB *leds, int numOfLeds, CRGB color, int duration) {
 
   int i, u, highest;
 
@@ -260,7 +260,7 @@ void JigglyLights::glow(CRGB *leds, int num_leds, CRGB color, int duration) {
     highest = color.g;
   }
 
-  for(i = 0; i < num_leds; i++) {
+  for(i = 0; i < numOfLeds; i++) {
 
     leds[i] = color;
   }
@@ -271,7 +271,7 @@ void JigglyLights::glow(CRGB *leds, int num_leds, CRGB color, int duration) {
 
   for(u = highest; u > 1; u--) {
 
-    for(i = 0; i < num_leds; i++) {
+    for(i = 0; i < numOfLeds; i++) {
 
       leds[i].r = (leds[i].r-- > 1) ? leds[i].r-- : 1;
       leds[i].g = (leds[i].g-- > 1) ? leds[i].g-- : 1;
@@ -583,5 +583,154 @@ void JigglyLights::matrixWaveOneRandom(CRGB *leds, int leds_x, int leds_y, CRGB 
 
     FastLED.show();
     delay(duration / leds_x);
+  }
+}
+
+
+void JigglyLights::matrixProgressbar(CRGB *leds, int leds_x, int leds_y, CRGB color, int duration) {
+
+  int i, x, y, index, wait;
+
+  wait = duration / (4 * leds_x);
+
+  for(i = 0; i < leds_x; i++) {
+
+    for(x = 0; x < leds_x; x++) {
+
+      for(y = 0; y < leds_y; y++) {
+
+        index = calcMatrixIndex(x, y, leds_x);
+
+        if(x < i) {
+          leds[index] = color;
+        }
+        else {
+          leds[index] = CRGB(0, 0, 0);
+        }
+      }
+    }
+
+    FastLED.show();
+    delay(wait);
+  }
+
+  for(i = 0; i < leds_x; i++) {
+
+    for(x = 0; x < leds_x; x++) {
+
+      for(y = 0; y < leds_y; y++) {
+
+        index = calcMatrixIndex(x, y, leds_x);
+
+        if(x > i) {
+          leds[index] = color;
+        }
+        else {
+          leds[index] = CRGB(0, 0, 0);
+        }
+      }
+    }
+
+    FastLED.show();
+    delay(wait);
+  }
+
+  for(i = (leds_x - 1); i >= 0; i--) {
+
+    for(x = (leds_x - 1); x >= 0; x--) {
+
+      for(y = (leds_y - 1); y >= 0; y--) {
+
+        index = calcMatrixIndex(x, y, leds_x);
+
+        if(x > i) {
+          leds[index] = color;
+        }
+        else {
+          leds[index] = CRGB(0, 0, 0);
+        }
+      }
+    }
+
+    FastLED.show();
+    delay(wait);
+  }
+
+  for(i = (leds_x - 1); i >= 0; i--) {
+
+    for(x = (leds_x - 1); x >= 0; x--) {
+
+      for(y = (leds_y - 1); y >= 0; y--) {
+
+        index = calcMatrixIndex(x, y, leds_x);
+
+        if(x < i) {
+          leds[index] = color;
+        }
+        else {
+          leds[index] = CRGB(0, 0, 0);
+        }
+      }
+    }
+
+    FastLED.show();
+    delay(wait);
+  }
+}
+
+
+void JigglyLights::matrixProgressbarCentered(CRGB *leds, int leds_x, int leds_y, CRGB color, int duration) {
+
+  int i, x, y, center, index, invIndex, wait;
+
+  center = leds_x / 2;
+  wait = duration / (4 * leds_x);
+
+  for(i = center; i < leds_x; i++) {
+
+    for(x = 0; x < leds_x; x++) {
+
+      for(y = 0; y < leds_y; y++) {
+
+        index = calcMatrixIndex(x, y, leds_x);
+        invIndex = calcMatrixIndex(((leds_x - x) - 1), y, leds_x);
+
+        if(x <= i) {
+          leds[index] = color;
+          leds[invIndex] = color;
+        }
+        else {
+          leds[index] = CRGB(0, 0, 0);
+          leds[invIndex] = CRGB(0, 0, 0);
+        }
+      }
+    }
+
+    FastLED.show();
+    delay(wait);
+  }
+
+  for(i = (leds_x - 1); i > center; i--) {
+
+    for(x = 0; x < leds_x; x++) {
+
+      for(y = 0; y < leds_y; y++) {
+
+        index = calcMatrixIndex(x, y, leds_x);
+        invIndex = calcMatrixIndex(((leds_x - x) - 1), y, leds_x);
+
+        if(x <= i) {
+          leds[index] = color;
+          leds[invIndex] = color;
+        }
+        else {
+          leds[index] = CRGB(0, 0, 0);
+          leds[invIndex] = CRGB(0, 0, 0);
+        }
+      }
+    }
+
+    FastLED.show();
+    delay(wait);
   }
 }

@@ -49,6 +49,7 @@ class JigglyLights {
         /**
          * runner
          * Let one light run across the whole LED strip and come back. Shiny.
+         * If color parameter is black(0-0-0), random colors will be displayed.
          */
         void runner(CRGB *leds, int numOfLeds, CRGB color, int duration);
 
@@ -64,6 +65,7 @@ class JigglyLights {
          * progressbar
          * Fill the LED strip one light at a time. After reaching the other end
          * defined via the numOfLeds variable it will clean up after itself.
+         * If color parameter is black(0-0-0), random colors will be displayed.
          */
         void progressbar(CRGB *leds, int numOfLeds, CRGB color, int duration);
 

@@ -14,7 +14,6 @@ CRGB prettyColors[] = {
 
 JigglyLights::JigglyLights() {}
 
-
 CRGB JigglyLights::randomColor(int maxIntensity) {
 
   int randRed, randGreen, randBlue;
@@ -78,7 +77,12 @@ void JigglyLights::runner(CRGB *leds, int numOfLeds, CRGB color, int duration) {
 
   for(i = 0; i < numOfLeds; i++) {
 
-    leds[i] = color;
+    if (color){
+      leds[i] = color;
+    }else{//color is 0,0,0
+      leds[i] = randomColor(255);
+    }
+
     FastLED.show();
     delay(wait);
 
@@ -88,7 +92,12 @@ void JigglyLights::runner(CRGB *leds, int numOfLeds, CRGB color, int duration) {
 
   for(i = (numOfLeds - 1); i > 0; i--) {
 
-    leds[i] = color;
+    if (color){
+      leds[i] = color;
+    }else{
+      leds[i] = randomColor(255);
+    }
+
     FastLED.show();
     delay(wait);
 
@@ -142,7 +151,12 @@ void JigglyLights::progressbar(CRGB *leds, int numOfLeds, CRGB color, int durati
 
   for(i = 0; i < numOfLeds; i++) {
 
-    leds[i] = color;
+    if (color){
+      leds[i] = color;
+    }else{//color is 0,0,0
+      leds[i] = randomColor(255);
+    }
+
     FastLED.show();
     delay(wait);
   }
@@ -156,7 +170,11 @@ void JigglyLights::progressbar(CRGB *leds, int numOfLeds, CRGB color, int durati
 
   for(i = numOfLeds; i >= 0; i--) {
 
-    leds[i] = color;
+    if (color){
+      leds[i] = color;
+    }else{//color is 0,0,0
+      leds[i] = randomColor(255);
+    }
     FastLED.show();
     delay(wait);
   }

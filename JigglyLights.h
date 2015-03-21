@@ -55,13 +55,6 @@ class JigglyLights {
 
 
         /**
-         * colorRunner
-         * Same as runner but with a new random color for each next step.
-         */
-        void colorRunner(CRGB *leds, int numOfLeds, int intensity, int duration);
-
-
-        /**
          * progressbar
          * Fill the LED strip one light at a time. After reaching the other end
          * defined via the numOfLeds variable it will clean up after itself.

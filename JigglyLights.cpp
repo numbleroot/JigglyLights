@@ -161,8 +161,19 @@ void JigglyLights::progressbarCentered(CRGB *leds, int numOfLeds, CRGB color, in
   for(i = center; i < numOfLeds; i++) {
 
     inv = (numOfLeds - i) - 1;
-    leds[i] = color;
-    leds[inv] = color;
+
+    if (color){
+      leds[i] = color;
+    }else{//color is 0,0,0
+      leds[i] = randomColor(255);
+    }
+
+    if (color){
+      leds[inv] = color;
+    }else{//color is 0,0,0
+      leds[inv] = randomColor(255);
+    }
+
     FastLED.show();
     delay(wait);
   }
@@ -185,8 +196,11 @@ void JigglyLights::blinking(CRGB *leds, int numOfLeds, CRGB color, int duration)
   wait = duration / 2;
 
   for(i = 0; i < numOfLeds; i++) {
-
-    leds[i] = color;
+    if (color){
+      leds[i] = color;
+    }else{//color is 0,0,0
+      leds[i] = randomColor(255); 
+    }
   }
 
   FastLED.show();
@@ -210,8 +224,11 @@ void JigglyLights::blinkingParts(CRGB *leds, int numOfLeds, int parts, CRGB colo
   wait = duration / 2;
 
   for(i = 0; i < numOfLeds; i += steps) {
-
-    leds[i] = color;
+    if (color){
+      leds[i] = color;
+    }else{//color is 0,0,0
+      leds[i] = randomColor(255); 
+    }
   }
 
   FastLED.show();

@@ -67,6 +67,7 @@ class JigglyLights {
          * progressbarCentered
          * A progress bar started from the calculated center of the LED strip.
          * Grows in both directions and comes back again.
+         * If color parameter is black(0-0-0), random colors will be displayed.
          */
         void progressbarCentered(CRGB *leds, int numOfLeds, CRGB color, int duration);
 
@@ -75,6 +76,7 @@ class JigglyLights {
          * blinking
          * Flash all LEDs of the strip for duration ms long and turn them black
          * afterwards for duration ms long.
+         * If color parameter is black(0-0-0), random colors will be displayed.
          */
         void blinking(CRGB *leds, int numOfLeds, CRGB color, int duration);
 
@@ -83,6 +85,7 @@ class JigglyLights {
          * blinkingParts
          * Same as blinking but only light each parts LED of the strip. If you
          * supply 5 as parts, every fifth light will be turned on in color.
+         * If color parameter is black(0-0-0), random colors will be displayed.
          */
         void blinkingParts(CRGB *leds, int numOfLeds, int parts, CRGB color, int duration);
 

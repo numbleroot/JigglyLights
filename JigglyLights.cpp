@@ -106,43 +106,6 @@ void JigglyLights::runner(CRGB *leds, int numOfLeds, CRGB color, int duration) {
   }
 }
 
-
-void JigglyLights::colorRunner(CRGB *leds, int numOfLeds, int intensity, int duration) {
-
-  int i, wait;
-
-  wait = duration / (numOfLeds * 2);
-
-  if(intensity < 0) {
-    intensity = 0;
-  }
-
-  if(intensity > 255) {
-    intensity = 255;
-  }
-
-  for(i = 0; i < numOfLeds; i++) {
-
-    leds[i] = randomColor(intensity);
-    FastLED.show();
-    delay(wait);
-
-    leds[i] = CRGB::Black;
-    FastLED.show();
-  }
-
-  for(i = (numOfLeds - 1); i > 0; i--) {
-
-    leds[i] = randomColor(intensity);
-    FastLED.show();
-    delay(wait);
-
-    leds[i] = CRGB::Black;
-    FastLED.show();
-  }
-}
-
-
 void JigglyLights::progressbar(CRGB *leds, int numOfLeds, CRGB color, int duration) {
 
   int i, wait;

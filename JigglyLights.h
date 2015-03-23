@@ -133,6 +133,12 @@ class JigglyLights {
          */
         void transition(CRGB *leds, int numOfLeds, CRGB firstColor, CRGB secondColor, int duration);
 
+        /**
+         * loop through color gradient
+         * 
+         */
+        void gradientLoop(CRGB *leds, int numOfLeds, int duration);
+
 
         /**
          * runAllAnimations

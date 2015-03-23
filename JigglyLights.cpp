@@ -483,7 +483,7 @@ void JigglyLights::gradientLoop(CRGB *leds, int numOfLeds, int duration){
   int gradientColorCount = sizeof(gradientColors) / sizeof(gradientColors[0]);
   int durationEach = duration / gradientColorCount;
 
-  for(i = 0; i < gradientColorCount; i++) {
+  for(int i = 0; i < gradientColorCount; i++) {
     for (int j = 0; j < numOfLeds; j++){ // set all leds
       leds[j] = gradientColors[i];
     }
@@ -498,7 +498,6 @@ void JigglyLights::gradientLoop(CRGB *leds, int numOfLeds, int duration){
 void JigglyLights::runAllAnimations(CRGB *leds, int numOfLeds, int maxIntensity, int durationEach) {
 
   runner(leds, numOfLeds, randomColor(maxIntensity), durationEach);
-  colorRunner(leds, numOfLeds, 255, durationEach);
   progressbar(leds, numOfLeds, randomColor(maxIntensity), durationEach);
   progressbarCentered(leds, numOfLeds, randomColor(maxIntensity), durationEach);
   blinking(leds, numOfLeds, randomColor(maxIntensity), durationEach);

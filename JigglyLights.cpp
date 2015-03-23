@@ -11,6 +11,48 @@ CRGB prettyColors[] = {
   CRGB::YellowGreen
 };
 
+CRGB gradientColors[] = {
+  CRGB(54,0,229), //blue
+  CRGB(70,3,204),
+  CRGB(87,7,179),
+  CRGB(104,11,154), //purple
+  CRGB(120,14,129),
+  CRGB(137,18,104),
+  CRGB(154,22,79),
+  CRGB(170,25,54),
+  CRGB(187,29,29),
+  CRGB(204,33,5), //red
+  CRGB(208,56,6),
+  CRGB(213,80,8),
+  CRGB(218,104,9),
+  CRGB(222,127,11), //orange
+  CRGB(227,151,12),
+  CRGB(232,175,14),
+  CRGB(236,198,15),
+  CRGB(241,222,17),
+  CRGB(246,246,19), //yellow
+  CRGB(219,247,18),
+  CRGB(192,248,17),
+  CRGB(165,249,17),
+  CRGB(138,250,16),
+  CRGB(112,251,16),
+  CRGB(85,252,15),
+  CRGB(58,253,15),
+  CRGB(31,254,14),
+  CRGB(5,255,14), //green
+  CRGB(4,240,39),
+  CRGB(3,225,64),
+  CRGB(3,210,98),
+  CRGB(2,195,114),
+  CRGB(2,181,139),
+  CRGB(1,166,164),
+  CRGB(1,151,189),
+  CRGB(0,136,214),
+  CRGB(0,122,240) //blue
+};
+
+
+
 
 JigglyLights::JigglyLights() {}
 
@@ -437,6 +479,21 @@ void JigglyLights::transition(CRGB *leds, int numOfLeds, CRGB firstColor, CRGB s
   delay(wait);
 }
 
+void JigglyLights::gradientLoop(CRGB *leds, int numOfLeds, int duration){
+  int gradientColorCount = sizeof(gradientColors) / sizeof(gradientColors[0]);
+  int durationEach = duration / gradientColorCount;
+
+  for(i = 0; i < gradientColorCount; i++) {
+    for (int j = 0; j < numOfLeds; j++){ // set all leds
+      leds[j] = gradientColors[i];
+    }
+    FastLED.show();
+    delay(durationEach);
+  }
+
+  clearAll(leds, numOfLeds);
+}
+
 
 void JigglyLights::runAllAnimations(CRGB *leds, int numOfLeds, int maxIntensity, int durationEach) {
 
@@ -450,6 +507,7 @@ void JigglyLights::runAllAnimations(CRGB *leds, int numOfLeds, int maxIntensity,
   sparkleAtRandomIndex(leds, numOfLeds, randomColor(maxIntensity), durationEach);
   flashyShit(leds, numOfLeds,maxIntensity, durationEach);
   randomIndexFill(leds, numOfLeds, randomColor(maxIntensity), durationEach);
+  gradientLoop(leds, numOfLeds, durationEach);
   clearAll(leds, numOfLeds);
 }
 

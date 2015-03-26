@@ -32,6 +32,15 @@ class JigglyLights {
 
 
         /**
+         * highest
+         * Throw in an array of values (e.g. RGB values) and the amount
+         * of values and you will get returned the highest of all values
+         * (based on absolute values).
+         */
+        int highest(int *vals, int numOfVals);
+
+
+        /**
          * calcMatrixIndex
          * Calculate the index of one light on a continous soldered
          * LED matrix.
@@ -95,7 +104,7 @@ class JigglyLights {
          * Let your LEDs glow steadily in the given duration intervall.
          * Somewhat like a notification pulse.
          */
-        void glow(CRGB *leds, int num_leds, CRGB color, int duration);
+        void glow(CRGB *leds, int numOfLeds, CRGB color, int duration);
 
 
         /**

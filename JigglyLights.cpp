@@ -83,6 +83,31 @@ CRGB JigglyLights::randomPrettyColor() {
 }
 
 
+int JigglyLights::highest(int *vals, int numOfVals) {
+
+  int i, highest;
+  int cpVals[numOfVals];
+
+  memcpy(cpVals, vals, sizeof(cpVals));
+
+  cpVals[0] = (cpVals[0] < 0) ? (cpVals[0] * -1) : cpVals[0];
+  highest = cpVals[0];
+
+  for(i = 1; i < numOfVals; i++) {
+
+    cpVals[i] = (cpVals[i] < 0) ? (cpVals[i] * -1) : cpVals[i];
+
+    if(cpVals[i] > highest) {
+      highest = cpVals[i];
+    }
+  }
+
+  free(cpVals);
+
+  return highest;
+}
+
+
 int JigglyLights::calcMatrixIndex(int x, int y, int leds_x) {
 
     int res = (y * leds_x);
@@ -445,12 +470,19 @@ void JigglyLights::randomIndexFill(CRGB *leds, int numOfLeds, CRGB color, int du
 
 void JigglyLights::transition(CRGB *leds, int numOfLeds, CRGB firstColor, CRGB secondColor, int duration) {
 
-  int i, wait, deltaRed, deltaGreen, deltaBlue;
+  int i, u, highestDelta, wait;
+  int delta[3];
 
-  wait = duration / 20;
-  deltaRed = (secondColor.r - firstColor.r) / 20;
-  deltaGreen = (secondColor.g - firstColor.g) / 20;
-  deltaBlue = (secondColor.b - firstColor.b) / 20;
+  delta[0] = firstColor.r - secondColor.r;
+  delta[1] = firstColor.g - secondColor.g;
+  delta[2] = firstColor.b - secondColor.b;
+
+  highestDelta = highest(delta, 3);
+  wait = duration / highestDelta;
+
+  delta[0] = (delta[0] < 0) ? 1 : -1;
+  delta[1] = (delta[1] < 0) ? 1 : -1;
+  delta[2] = (delta[2] < 0) ? 1 : -1;
 
   for(i = 0; i < numOfLeds; i++) {
 
@@ -460,23 +492,18 @@ void JigglyLights::transition(CRGB *leds, int numOfLeds, CRGB firstColor, CRGB s
   FastLED.show();
   delay(wait);
 
-  for(i = 0; i < numOfLeds; i++) {
+  for(u = highestDelta; u > 0; u--) {
 
-    leds[i].r += deltaRed;
-    leds[i].g += deltaGreen;
-    leds[i].b += deltaBlue;
+    for(i = 0; i < numOfLeds; i++) {
+
+      leds[i].r = (leds[i].r != secondColor.r) ? (leds[i].r + delta[0]) : secondColor.r;
+      leds[i].g = (leds[i].g != secondColor.g) ? (leds[i].g + delta[1]) : secondColor.g;
+      leds[i].b = (leds[i].b != secondColor.b) ? (leds[i].b + delta[2]) : secondColor.b;
+    }
+
+    FastLED.show();
+    delay(wait);
   }
-
-  FastLED.show();
-  delay(wait);
-
-  for(i = 0; i < numOfLeds; i++) {
-
-    leds[i].setRGB(0, 0, 0);
-  }
-
-  FastLED.show();
-  delay(wait);
 }
 
 

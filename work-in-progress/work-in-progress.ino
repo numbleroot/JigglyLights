@@ -37,31 +37,38 @@ void loop() {
     Serial.println(doIt, DEC);
     
     if(doIt == 49) {
-      jiggly.matrixWave(leds, LEDS_X, LEDS_Y, CRGB(0, 0, 2), 500);
+      Serial.println((2 - 5), DEC);
+      jiggly.matrixWave(leds, LEDS_X, LEDS_Y, CRGB(0, 0, 20), 500);
       jiggly.clearAll(leds, NUM_LEDS);
     }
     else if(doIt == 50) {
-      jiggly.matrixWaveInverted(leds, LEDS_X, LEDS_Y, CRGB(0, 0, 2), 500);
+      jiggly.matrixWaveInverted(leds, LEDS_X, LEDS_Y, CRGB(0, 0, 20), 500);
       jiggly.clearAll(leds, NUM_LEDS);
     }
     else if(doIt == 51) {
-      jiggly.matrixWaveOne(leds, LEDS_X, LEDS_Y, CRGB(0, 0, 2), 500);
+      jiggly.matrixWaveOne(leds, LEDS_X, LEDS_Y, CRGB(0, 0, 20), 500);
       jiggly.clearAll(leds, NUM_LEDS);
     }
     else if(doIt == 52) {
-      jiggly.matrixWaveOneRandom(leds, LEDS_X, LEDS_Y, CRGB(0, 0, 2), 500);
+      jiggly.matrixWaveOneRandom(leds, LEDS_X, LEDS_Y, CRGB(0, 0, 20), 500);
       jiggly.clearAll(leds, NUM_LEDS);
     }
     else if(doIt == 53) {
-      jiggly.matrixProgressbar(leds, LEDS_X, LEDS_Y, CRGB(0, 0, 2), 1000);
+      jiggly.matrixProgressbar(leds, LEDS_X, LEDS_Y, CRGB(0, 0, 20), 1000);
       jiggly.clearAll(leds, NUM_LEDS);
     }
     else if(doIt == 54) {
-      jiggly.matrixProgressbarCentered(leds, LEDS_X, LEDS_Y, CRGB(0, 0, 2), 1000);
+      jiggly.matrixProgressbarCentered(leds, LEDS_X, LEDS_Y, CRGB(0, 0, 20), 1000);
       jiggly.clearAll(leds, NUM_LEDS);
     }
     else if(doIt == 55) {
-      jiggly.matrixLevel(leds, LEDS_X, LEDS_Y, CRGB(0, 0, 2), 500);
+      jiggly.matrixLevel(leds, LEDS_X, LEDS_Y, CRGB(0, 0, 20), 500);
+      jiggly.clearAll(leds, NUM_LEDS);
+    }
+    else if(doIt == 56) {
+      jiggly.transition(leds, NUM_LEDS, CRGB(30, 0, 0), CRGB(0, 30, 0), 4000);
+      jiggly.transition(leds, NUM_LEDS, CRGB(0, 30, 0), CRGB(0, 0, 30), 4000);
+      jiggly.transition(leds, NUM_LEDS, CRGB(0, 0, 30), CRGB(30, 0, 0), 4000);
       jiggly.clearAll(leds, NUM_LEDS);
     }
   }

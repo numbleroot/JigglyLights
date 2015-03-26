@@ -54,3 +54,7 @@ void loop() {
 ```
 
 You can find this example directly as an .ino file in this repo: [jiggly-example.ino](https://github.com/lenny-code/JigglyLights/blob/master/jiggly-example.ino).
+
+## Third party library used
+
+JigglyLights depends on the incredible [FastLED library](https://github.com/FastLED/FastLED).

@@ -241,7 +241,7 @@ void JigglyLights::blinking(CRGB *leds, int numOfLeds, CRGB color, int duration)
     if (color){
       leds[i] = color;
     }else{//color is 0,0,0
-      leds[i] = randomColor(255); 
+      leds[i] = randomColor(255);
     }
   }
 
@@ -269,7 +269,7 @@ void JigglyLights::blinkingParts(CRGB *leds, int numOfLeds, int parts, CRGB colo
     if (color){
       leds[i] = color;
     }else{//color is 0,0,0
-      leds[i] = randomColor(255); 
+      leds[i] = randomColor(255);
     }
   }
 
@@ -479,14 +479,30 @@ void JigglyLights::transition(CRGB *leds, int numOfLeds, CRGB firstColor, CRGB s
   delay(wait);
 }
 
-void JigglyLights::gradientLoop(CRGB *leds, int numOfLeds, int duration){
-  int gradientColorCount = sizeof(gradientColors) / sizeof(gradientColors[0]);
-  int durationEach = duration / gradientColorCount;
 
-  for(int i = 0; i < gradientColorCount; i++) {
-    for (int j = 0; j < numOfLeds; j++){ // set all leds
+void JigglyLights::gradientLoop(CRGB *leds, int numOfLeds, int brightness, int duration) {
+
+  int i, j, gradientColorCount, durationEach;
+
+  gradientColorCount = sizeof(gradientColors) / sizeof(gradientColors[0]);
+  durationEach = duration / gradientColorCount;
+
+  if(brightness < 0) {
+    brightness = 0;
+  }
+  else if(brightness > 255) {
+    brightness = 255;
+  }
+
+  FastLED.setBrightness(brightness);
+
+  for(i = 0; i < gradientColorCount; i++) {
+
+    /* Set all LEDs. */
+    for(j = 0; j < numOfLeds; j++) {
       leds[j] = gradientColors[i];
     }
+
     FastLED.show();
     delay(durationEach);
   }
@@ -506,7 +522,7 @@ void JigglyLights::runAllAnimations(CRGB *leds, int numOfLeds, int maxIntensity,
   sparkleAtRandomIndex(leds, numOfLeds, randomColor(maxIntensity), durationEach);
   flashyShit(leds, numOfLeds,maxIntensity, durationEach);
   randomIndexFill(leds, numOfLeds, randomColor(maxIntensity), durationEach);
-  gradientLoop(leds, numOfLeds, durationEach);
+  gradientLoop(leds, numOfLeds, maxIntensity, durationEach);
   clearAll(leds, numOfLeds);
 }
 

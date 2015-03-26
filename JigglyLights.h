@@ -134,10 +134,10 @@ class JigglyLights {
         void transition(CRGB *leds, int numOfLeds, CRGB firstColor, CRGB secondColor, int duration);
 
         /**
-         * loop through color gradient
-         * 
+         * gradientLoop
+         * Loop through color gradient with specified maximum brightness.
          */
-        void gradientLoop(CRGB *leds, int numOfLeds, int duration);
+        void gradientLoop(CRGB *leds, int numOfLeds, int brightness, int duration);
 
 
         /**

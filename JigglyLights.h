@@ -212,6 +212,21 @@ class JigglyLights {
          * Let a bar rise up and down on your matrix.
          */
         void matrixLevel(CRGB *leds, int leds_x, int leds_y, CRGB color, int duration);
+
+
+        /**
+         * matrixStripes
+         * Light up each row with all colors provided by color alternately. Specify how many
+         * colors you are using via numOfColors.
+         */
+        void matrixStripes(CRGB *leds, int leds_x, int leds_y, CRGB *colors, int numOfColors, int duration);
+
+
+        /**
+         * matrixStripesDiag
+         * Same as matrixStripes but "rotated" by 45 degrees.
+         */
+        void matrixStripesDiag(CRGB *leds, int leds_x, int leds_y, CRGB *colors, int numOfColors, int duration);
 };
 
 #endif

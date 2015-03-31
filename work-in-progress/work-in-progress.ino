@@ -30,6 +30,7 @@ void setup() {
 
 void loop() {
   int doIt;
+  CRGB stripeColors[2] = { CRGB(20, 0, 0), CRGB(0, 0, 20) };
   
   if(Serial.available() > 0) {
   
@@ -69,6 +70,14 @@ void loop() {
       jiggly.transition(leds, NUM_LEDS, CRGB(30, 0, 0), CRGB(0, 30, 0), 4000);
       jiggly.transition(leds, NUM_LEDS, CRGB(0, 30, 0), CRGB(0, 0, 30), 4000);
       jiggly.transition(leds, NUM_LEDS, CRGB(0, 0, 30), CRGB(30, 0, 0), 4000);
+      jiggly.clearAll(leds, NUM_LEDS);
+    }
+    else if(doIt == 57) {
+      jiggly.matrixStripes(leds, LEDS_X, LEDS_Y, stripeColors, 2, 1000);
+      jiggly.clearAll(leds, NUM_LEDS);
+    }
+    else if(doIt == 48) {
+      jiggly.matrixStripesDiag(leds, LEDS_X, LEDS_Y, stripeColors, 2, 1000);
       jiggly.clearAll(leds, NUM_LEDS);
     }
   }

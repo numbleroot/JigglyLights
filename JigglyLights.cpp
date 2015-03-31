@@ -57,6 +57,7 @@ CRGB gradientColors[] = {
 
 JigglyLights::JigglyLights() {}
 
+
 CRGB JigglyLights::randomColor(int maxIntensity) {
 
   int randRed, randGreen, randBlue;
@@ -914,4 +915,86 @@ void JigglyLights::matrixLevel(CRGB *leds, int leds_x, int leds_y, CRGB color, i
     FastLED.show();
     delay(duration / leds_y);
   }
+}
+
+
+void JigglyLights::matrixStripes(CRGB *leds, int leds_x, int leds_y, CRGB *colors, int numOfColors, int duration) {
+
+  int i, x, y, indexLEDs, indexStripes, numOfStripes, numOfRows;
+  int *stripes;
+
+  numOfStripes = leds_x;
+  numOfRows = leds_y;
+
+  if(leds_y > numOfStripes) {
+    numOfStripes = leds_y;
+    numOfRows = leds_x;
+  }
+
+  stripes = (int *) malloc(sizeof(int) * numOfStripes);
+
+  for(i = 0; i < numOfStripes; i++) {
+
+    stripes[i] = (i % numOfColors);
+  }
+
+  for(i = 0; i < numOfColors; i++) {
+
+    for(y = 0; y < numOfRows; y++) {
+
+      for(x = 0; x < numOfStripes; x++) {
+
+        indexLEDs = calcMatrixIndex(x, y, numOfStripes);
+        indexStripes = stripes[((i + y) % numOfStripes)];
+
+        leds[indexLEDs] = colors[indexStripes];
+      }
+    }
+
+    FastLED.show();
+    delay(duration / numOfColors);
+  }
+
+  free(stripes);
+}
+
+
+void JigglyLights::matrixStripesDiag(CRGB *leds, int leds_x, int leds_y, CRGB *colors, int numOfColors, int duration) {
+
+  int i, x, y, indexLEDs, indexStripes, numOfStripes, numOfRows;
+  int *stripes;
+
+  numOfStripes = leds_x;
+  numOfRows = leds_y;
+
+  if(leds_y > numOfStripes) {
+    numOfStripes = leds_y;
+    numOfRows = leds_x;
+  }
+
+  stripes = (int *) malloc(sizeof(int) * numOfStripes);
+
+  for(i = 0; i < numOfStripes; i++) {
+
+    stripes[i] = (i % numOfColors);
+  }
+
+  for(i = 0; i < numOfColors; i++) {
+
+    for(x = 0; x < numOfStripes; x++) {
+
+      for(y = 0; y < numOfRows; y++) {
+
+        indexLEDs = calcMatrixIndex(x, y, numOfStripes);
+        indexStripes = stripes[((i + x + y) % numOfStripes)];
+
+        leds[indexLEDs] = colors[indexStripes];
+      }
+    }
+
+    FastLED.show();
+    delay(duration / numOfColors);
+  }
+
+  free(stripes);
 }
